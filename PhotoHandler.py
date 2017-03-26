@@ -8,8 +8,18 @@ class PhotoHandler:
         self.TIF_PATH = "data/input.tif"
         self.TXT_PATH = "data/output"
         self.AIRPORT_CODES_PATH = "data/airport_codes.txt"
+        self.AIRLINE_INDICATORS_PATH = "data/airline_indicators.txt"
 
         self.AIRPORT_CODES = self.buildAirportCodesSet()
+        self.AIRLINE_INDICATORS = self.buildAirlineIndicatorsSet()
+
+    def buildAirlineIndicatorsSet(self):
+        text_file = open(self.AIRLINE_INDICATORS_PATH, "r")
+        text = text_file.read()
+        
+        airline_indicators = set(text.split())
+
+        return airline_indicators
 
     def buildAirportCodesSet(self):
         text_file = open(self.AIRPORT_CODES_PATH, "r")
@@ -41,7 +51,7 @@ class PhotoHandler:
         
         # !! should probably handle errors and stuff here
 
-    def findConfirmationCode(self, path):
+    def findDataInPicture(self, path):
         self.convertPhotoToTextFile(path)
 
         # something went wrong with OCR
@@ -56,7 +66,9 @@ class PhotoHandler:
 
         airportCodes = self.searchTextForAirports(text)
 
-        return confirmationNumber, airportCodes
+        airline = self.searchTextForAirline(text)
+
+        return confirmationNumber, airportCodes, airline
 
     def searchTextForAirports(self, text):
         matches = re.finditer(r'[A-Z]{3}', text)
@@ -69,6 +81,14 @@ class PhotoHandler:
                 airports.add(possible_airport)
 
         return airports
+
+    def searchTextForAirline(self, text):
+        for airline in self.AIRLINE_INDICATORS:
+            airline = airline.lower()
+            if airline in text.lower():
+                return airline
+
+        return None
 
     def searchTextForConfirmation(self, text):
         matches = re.finditer(r'\b[0-9A-Z]{6}\b', text)
@@ -95,19 +115,3 @@ class PhotoHandler:
             return potential_codes
         else:
             return None
-
-
-
-ph = PhotoHandler()
-ccs = []
-ccs.append(ph.findConfirmationCode("data/test/test1.jpg"))
-ccs.append(ph.findConfirmationCode("data/test/test2.jpg"))
-ccs.append(ph.findConfirmationCode("data/test/test3.jpg"))
-ccs.append(ph.findConfirmationCode("data/test/test4.jpg"))
-ccs.append(ph.findConfirmationCode("data/test/test5.jpg"))
-ccs.append(ph.findConfirmationCode("data/test/test6.jpg"))
-
-i = 1
-for cc in ccs:
-    print(i, cc)
-    i+=1
