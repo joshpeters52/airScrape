@@ -7,6 +7,9 @@ import csv
 import wget
 import subprocess
 from PhotoHandler import PhotoHandler
+import MySQLdb
+import smtplib
+from email.mime.text import MIMEText
 
 consumer_key = '0AxoVLfJH79Npvq2IvFZk4JpZ'
 consumer_secret = 'YoofWwa2331AxJ143QAFP2FKBEil3470bdALHwecMEZgBBm0xu'
@@ -28,6 +31,19 @@ class MyListener(StreamListener):
         create_cmd = "mkdir data/images/"
         process = process = subprocess.Popen(create_cmd.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
+
+        #cnx = {'host': 'air-scrape-db.ch5gacg1ryrd.us-east-1.rds.amazonaws.com',
+        #        'username': 'sharknado',
+        #        'password': 'badandboujee',
+        #        'db': 'air-scrape-db'}
+        #db = MySQLdb.connect(host=cnx['host'],port=3306,user=cnx['username'],passwd=cnx['password'],db=cnx['db'])
+
+        #cursor = db.cursor()
+        #cursor.execute("SELECT VERSION()")
+        #data = cursor.fetchone()
+
+        #print(data)
+
 
     def handle_data(self, data):
         file = open('output.txt', 'w+')
