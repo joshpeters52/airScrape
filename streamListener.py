@@ -1,14 +1,8 @@
-
-# coding: utf-8
-
-# In[7]:
-
 import tweepy
 from tweepy import OAuthHandler
 from tweepy import Stream
 from tweepy.streaming import StreamListener
 
- 
 consumer_key = '0AxoVLfJH79Npvq2IvFZk4JpZ'
 consumer_secret = 'YoofWwa2331AxJ143QAFP2FKBEil3470bdALHwecMEZgBBm0xu'
 access_token = '254795019-7n0fD8nmriLyzyekwdP1ECVZaOloxa2TXjy4u2Ce'
@@ -18,35 +12,23 @@ auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
  
 api = tweepy.API(auth)
-
-
-# In[8]:
-
-class StdOutListener(StreamListener):
-
+ 
+class MyListener(StreamListener):
+ 
     def on_data(self, data):
-        print(data)
+        try:
+            with open('tweets.json', 'a') as f:
+                f.write(data)
+                return True
+        except BaseException as e:
+            #print(&quot;Error on_data: %s&quot; % str(e))
+            print(e)
         return True
-
+ 
     def on_error(self, status):
-        print (status)
-
-
-# In[ ]:
-
-if __name__ == '__main__':
-
-    #This handles Twitter authetification and the connection to Twitter Streaming API
-    l = StdOutListener()
-    auth = OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_secret)
-    stream = Stream(auth, l)
-
-    #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
-    stream.filter(track=['#flightbooked'])
-
-
-# In[ ]:
-
-
+        print(status)
+        return True
+ 
+twitter_stream = Stream(auth, MyListener())
+twitter_stream.filter(track=['#TJHACKS'])
 
