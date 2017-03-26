@@ -32,17 +32,11 @@ class MyListener(StreamListener):
         process = process = subprocess.Popen(create_cmd.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
 
-        #cnx = {'host': 'air-scrape-db.ch5gacg1ryrd.us-east-1.rds.amazonaws.com',
-        #        'username': 'sharknado',
-        #        'password': 'badandboujee',
-        #        'db': 'air-scrape-db'}
-        #db = MySQLdb.connect(host=cnx['host'],port=3306,user=cnx['username'],passwd=cnx['password'],db=cnx['db'])
-
-        #cursor = db.cursor()
-        #cursor.execute("SELECT VERSION()")
-        #data = cursor.fetchone()
-
-        #print(data)
+        cnx = {'host': 'air-scrape-db2.ch5gacg1ryrd.us-east-1.rds.amazonaws.com',
+                'username': 'sharknado2',
+                'password': 'badandboujee2',
+                'db': 'sharknado2'}
+        self.db = MySQLdb.connect(host=cnx['host'],port=3306,user=cnx['username'],passwd=cnx['password'],db=cnx['db'])
 
 
     def handle_data(self, data):
@@ -57,18 +51,16 @@ class MyListener(StreamListener):
             conf, airports, airline = self.handler.findDataInPicture('data/images/' + screenName + '.jpg')
             if conf is None:
                 return
-            file.write(name + ',' + screenName + ',' + mediaUrl + ',')
-            for c in conf:
-                file.write(c + '-')
-            file.write(',')
-            for a in airports:
-                file.write(a+'-')
-            file.write(',' + airline)
-            file.write('\n')
+            self.writeToDB(name, screenName, mediaUrl, ','.join(conf), ','.join(airports), airline, 'NONE')
             self.sendEmail()
         except Exception as e:
             print(e)
             mediaUrl = ''
+
+    def writeToDB(self, name, handle, mediaUrl, conf, airports, airlines, linkURL):
+        cursor = self.db.cursor()
+        cursor.execute("INSERT INTO data (name, twitterHandle, imageURL, confirmationCode, airports, airlines, linkURL) VALUES (%s,%s,%s,%s,%s,%s,%s)", (name,handle,mediaUrl,conf,airports,airlines,linkURL))
+        self.db.commit()
  
     def sendEmail(self):
         gmail_user = "airscraper.scrappy@gmail.com"
