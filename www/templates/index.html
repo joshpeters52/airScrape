@@ -1,6 +1,29 @@
 <!doctype html>
-<title>airscrape</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-<div class=page>
-  <h1>hello world</h1>
-</div>
+<html>
+   <body>
+   
+    <table border="1" cellspacing="2" cellpadding="5" width="75%">
+        <tr>      
+            <th>Name</th>      
+            <th>Handle</th> 
+            <th>Image Link</th>      
+            <th>Confirmation Code</th>      
+            <th>Airports</th>      
+            <th>Airline</th>      
+        </tr>
+    {% for entry in entries %}
+         
+        <tr>
+           <td> {{ entry['name'] }} </td>
+           <td> {{ entry['handle'] }} </td>
+           <td> {{ entry['imageurl'] }} </td>
+           <td> {{ entry['conf'] }} </td>
+           <td> {{ entry['airports'] }} </td>
+           <td> {{ entry['airlines'] }} </td>
+        </tr>
+        
+    {% endfor %}
+    </table>
+      
+   </body>
+</html>

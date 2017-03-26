@@ -42,7 +42,7 @@ class MyListener(StreamListener):
     def handle_data(self, data):
         file = open('output.txt', 'w+')
         tweet = json.loads(data) # load it as Python dict
-        print(json.dumps(tweet, indent=4)) # pretty-print#pprint(data["medai_url"])
+        #print(json.dumps(tweet, indent=4)) # pretty-print#pprint(data["medai_url"])
         name = tweet['user']['name']
         screenName = tweet['user']['screen_name']
         #link = tweet
