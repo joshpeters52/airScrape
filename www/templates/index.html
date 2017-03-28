@@ -1,29 +1,132 @@
-<!doctype html>
-<html>
-   <body>
-   
-    <table border="1" cellspacing="2" cellpadding="5" width="75%">
-        <tr>      
-            <th>Name</th>      
-            <th>Handle</th> 
-            <th>Image Link</th>      
-            <th>Confirmation Code</th>      
-            <th>Airports</th>      
-            <th>Airline</th>      
-        </tr>
-    {% for entry in entries %}
-         
-        <tr>
-           <td> {{ entry['name'] }} </td>
-           <td> {{ entry['handle'] }} </td>
-           <td> {{ entry['imageurl'] }} </td>
-           <td> {{ entry['conf'] }} </td>
-           <td> {{ entry['airports'] }} </td>
-           <td> {{ entry['airlines'] }} </td>
-        </tr>
-        
-    {% endfor %}
-    </table>
-      
-   </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+     content="width=device-width, initial-scale=1, user-scalable=yes">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/styles.css" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/0bed6a216a.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img class="ourlogo" src="static/logo.png">
+        <div class="ourtitle">SKYSCRAPER</div> <div class="ourmotto"> | Hack The Skies.</div>
+      </a>
+    </div>
+    <div class="aboutbutton">
+      <a href="#about">about</a>
+    </div>
+  </div>
+</nav>
+ 
+{% for entry in entries %}
+
+<div class="container-fluid {{ entry['style'] }}"> 
+  <div class="row">
+      <div class="col-md-4">
+        <div class="minilabel">FLIGHT:</div>
+        <div class="airports">{{ entry['FROM'] }} <i class="fa fa-plane" aria-hidden="true"></i> {{ entry['TO'] }}</div>
+      </div>
+      <div class="col-md-4">
+        <div class="minilabel">CONFIRMATION:</div>
+        <div class="conf">#{{ entry['conf'] }}</div>
+      </div>
+      <div class="col-md-4">
+        <div class="minilabel">NAME:</div>
+        <div class="name">{{ entry['name'] }}</div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-4">
+        <div class="minilabel">AIRLINE:</div>
+        <div class="airline">
+          <a href="{{ entry['airlineurl'] }}">
+            {{ entry['airlines'] }} airlines
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="minilabel">TWITTER:</div>
+        <div class="twitter">
+          <a href="{{ entry['linkurl'] }}">
+            @{{ entry['handle'] }}
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2">
+      </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<div class="container-fluid about" name="about" id="about"> 
+  <div class="row">
+    <div class="col-md-12">
+      <h1>ABOUT SKYSCRAPER</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        SkyScraper exploits a security flaw prevalent in every national airline in the United States: online flight reservations are protected solely by a 6 character long, plaintext code.
+        <br>
+        <br>
+        Consumers are not required to make an account when they book a flight. All they need is a confirmation number, which is essentially a password. Anyone who knows this number has complete and unfiltered access to the airline reservation associated with it. 
+        <br>
+        <br>
+        However, airlines make no effort to inform consumers that their confirmation number should be kept private.  It is usually displayed and emailed to you in plain text. Unknowing consumers, excited to share their new vacation, post their reservation confirmations on social media like Twitter. This information can be mined, manipulated, and used against consumers. 
+        <br>
+        <br>
+        We built SkyScraper to highlight this vulnerability as a proof of concept.
+        <br>
+        <br>
+        SkyScraper scans Twitter in real time to find pictures of airline reservations.  It then extracts the consumer name, confirmation number, and departing and returning airports. Every time a new flight has been hacked, the user is notified by email. The information of all found flights is also available on our website.  In addition, we also created an Alexa application, which you can query to see how many flights have been hacked.
+        <br>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Skyscraper grants users access to hacked reservations and allows the user to:</h4>
+        <ul>
+        <li>Access sensitive personal information associated with the account (name, address, phone number)</li>
+        <li>Add/change your frequent flier number to their flight to rack up free miles</li>
+        <li>Cancel their reservation</li>
+        <li>Change their flight</li>
+        <li>Change the contact information associated with the reservation</li>
+        <li>Upgrade their flight</li>
+        <li>Add a new leg to their trip</li>
+        </ul>
+        <br>
+    </div>
+    <div class="col-md-6">
+      <h4>Every national airline in the US was vulnerable to these attacks including:</h4>
+        <ul>
+        <li>Alaska Airlines</li>
+        <li>Allegiant</li>
+        <li>American Airlines</li>
+        <li>Delta Airlines</li>
+        <li>Frontier Airlines</li>
+        <li>Hawaiian Airlines</li>
+        <li>JetBlue</li>
+        <li>SouthWest Airlines</li>
+        <li>Spirit Airlines</li>
+        <li>United Airlines</li>
+        <li>Virgin America</li>
+        </ul>
+        <br>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>

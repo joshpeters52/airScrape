@@ -45,18 +45,20 @@ class MyListener(StreamListener):
         #print(json.dumps(tweet, indent=4)) # pretty-print#pprint(data["medai_url"])
         name = tweet['user']['name']
         screenName = tweet['user']['screen_name']
-        #link = tweet
+       
         try:
             mediaUrl = tweet['extended_entities']['media'][0]['media_url']
+            tweetUrl = tweet['extended_entities']['media'][0]['expanded_url']
             filename = wget.download(mediaUrl, out = 'data/images/'+screenName+'.jpg')
             conf, airports, airline = self.handler.findDataInPicture('data/images/' + screenName + '.jpg')
             if conf is None:
                 return
-            self.writeToDB(name, screenName, mediaUrl, ','.join(conf), ','.join(airports), airline, 'NONE')
+            self.writeToDB(name, screenName, mediaUrl, ','.join(conf), ','.join(airports), airline, tweetUrl)
             self.sendEmail()
         except Exception as e:
             print(e)
             mediaUrl = ''
+            tweetUrl = ''
 
     def writeToDB(self, name, handle, mediaUrl, conf, airports, airlines, linkURL):
         cursor = self.db.cursor()

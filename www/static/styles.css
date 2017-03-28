@@ -1,0 +1,106 @@
+.airports {
+	font-size: 30px;
+	font-weight: bolder;
+}
+
+.ourlogo {
+    height: 50px;
+    display: inline-block !important;
+    margin-top: -12px;
+    margin-left: -10px;
+}
+
+.ourmotto {
+	display: inline-block !important;
+	color: lightgray;
+}
+
+.aboutbutton {
+	float: right;
+	font-size: larger;
+	margin-top: 12px;
+}
+
+.aboutbutton a.active {
+	color: white;
+}
+
+.ourtitle {
+	display: inline-block;
+    font-size: 30px;
+    font-weight: 100;
+    color: #2ecc71;
+}
+
+.conf {
+	font-size: 30px;
+	font-weight: bold;
+	color: #2ecc71;
+}
+
+.name {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.minilabel {
+	color: white;
+}
+
+.airline {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.navbar {
+	margin-bottom: -1px;
+}
+
+.twitter {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.odd {
+	background-color: lightgray;
+	color: #6C7A89;
+	text-align: center;
+}
+
+.odd .airports {
+	color: black;
+}
+
+.odd .conf {
+	color: black;
+}
+
+.odd .name {
+	color: black;
+}
+
+.navbar {
+	background-color: #2C3E50;
+}
+
+.even {
+	background-color: #2C3E50;
+	color: #D2D7D3;
+	text-align: center;
+}
+
+.even .airports {
+	color: white;
+}
+
+.even .conf {
+	color: white;
+}
+
+.even .name {
+	color: white;
+}
+
+.row {
+	padding: 20px;
+}
