@@ -11,10 +11,10 @@ import MySQLdb
 import smtplib
 from email.mime.text import MIMEText
 
-consumer_key = '0AxoVLfJH79Npvq2IvFZk4JpZ'
-consumer_secret = 'YoofWwa2331AxJ143QAFP2FKBEil3470bdALHwecMEZgBBm0xu'
-access_token = '254795019-7n0fD8nmriLyzyekwdP1ECVZaOloxa2TXjy4u2Ce'
-access_secret = 'IC5cbdTUk34ZIfyfSjnuO66ljYMafcgjRO5Nyt3OlRr5j'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_secret = ''
  
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
